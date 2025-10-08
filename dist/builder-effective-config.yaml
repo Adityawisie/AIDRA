@@ -1,0 +1,14 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.myv0project.app
+productName: My V0 Project
+files:
+  - filter:
+      - electron/**/*
+      - out/**/*
+      - node_modules/**/*
+      - public/**/*
+win:
+  target: nsis
+electronVersion: 38.2.2
