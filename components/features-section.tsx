@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card"
 import { Search, FileText, GitCompare, BookOpen } from "lucide-react"
+import { StarLayer } from "@/components/animate-ui/components/backgrounds/stars"
 
 const features = [
   {
@@ -30,7 +31,14 @@ const features = [
 export function FeaturesSection() {
   return (
     <section id="features" className="py-32 relative">
-      <div className="container mx-auto px-6 lg:px-8">
+      <StarLayer
+        count={200}
+        size={1}
+        transition={{ repeat: Infinity, duration: 80, ease: 'linear' }}
+        starColor="rgba(64, 224, 208, 0.3)"
+        className="absolute inset-0 opacity-30"
+      />
+      <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4 text-balance">
             Powerful Policy Intelligence

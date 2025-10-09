@@ -11,7 +11,6 @@ export default function FeaturesPage() {
     <div className="relative min-h-screen bg-background">
       <Navbar />
       <main>
-        <AnimationText />
         <FeaturesHeader />
         <FeaturesDetailSection />
         <TestimonialSection />

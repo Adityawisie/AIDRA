@@ -6,7 +6,7 @@ import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen bg-background">
+    <>
       <Navbar />
       <main>
         <HeroSection />
@@ -15,6 +15,6 @@ export default function HomePage() {
         <ContactSection />
       </main>
       <Footer />
-    </div>
+    </>
   )
 }

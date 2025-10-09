@@ -10,10 +10,9 @@ import AnimationText from "@/components/animation-text"
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen bg-background">
+    <>
       <Navbar />
       <main>
-        <AnimationText />
         <AboutHeader />
         <AboutSection />
         <TeamSection />
@@ -22,6 +21,6 @@ export default function AboutPage() {
         <ContactSection />
       </main>
       <Footer />
-    </div>
+    </>
   )
 }

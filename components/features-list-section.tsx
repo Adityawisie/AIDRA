@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card"
 import { CheckCircle2 } from "lucide-react"
 import AnimationText from "@/components/animation-text"
+import { StarLayer } from "@/components/animate-ui/components/backgrounds/stars"
 
 const featuresList = [
   "Search across 10,000+ government policies and circulars",
@@ -16,7 +17,14 @@ const featuresList = [
 export function FeaturesListSection() {
   return (
     <section className="py-24 relative bg-secondary/30">
-      <div className="container mx-auto px-6 lg:px-8">
+      <StarLayer
+        count={150}
+        size={1}
+        transition={{ repeat: Infinity, duration: 100, ease: 'linear' }}
+        starColor="rgba(64, 224, 208, 0.2)"
+        className="absolute inset-0 opacity-20"
+      />
+      <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto">
           <AnimationText />
           <div className="text-center mb-12">

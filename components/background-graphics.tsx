@@ -1,5 +1,7 @@
 "use client"
 
+import { StarLayer } from "@/components/animate-ui/components/backgrounds/stars"
+
 export function BackgroundGraphics() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -27,6 +29,21 @@ export function BackgroundGraphics() {
         <circle cx="30%" cy="80%" r="4" fill="rgb(64, 224, 208)" opacity="0.7" />
         <circle cx="70%" cy="40%" r="4" fill="rgb(64, 224, 208)" opacity="0.7" />
       </svg>
+
+      <StarLayer
+        count={300}
+        size={1}
+        transition={{ repeat: Infinity, duration: 100, ease: 'linear' }}
+        starColor="rgba(64, 224, 208, 0.5)"
+        className="opacity-50"
+      />
+      <StarLayer
+        count={150}
+        size={2}
+        transition={{ repeat: Infinity, duration: 150, ease: 'linear' }}
+        starColor="rgba(64, 224, 208, 0.3)"
+        className="opacity-30"
+      />
     </div>
   )
 }

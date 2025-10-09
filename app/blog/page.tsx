@@ -9,7 +9,6 @@ export default function BlogPage() {
     <div className="relative min-h-screen bg-background">
       <Navbar />
       <main>
-        <AnimationText />
         <BlogHeader />
         <BlogGrid />
       </main>
