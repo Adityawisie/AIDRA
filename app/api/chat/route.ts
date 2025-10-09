@@ -5,15 +5,17 @@ import { cookies } from 'next/headers'
 
 export async function POST(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
-
-    const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
+    let supabase = null
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      const cookieStore = await cookies()
+      supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
         },
-      },
-    })
+      })
+    }
 
     const { message } = await request.json()
 
@@ -26,7 +28,7 @@ export async function POST(request: NextRequest) {
     let context = ""
     let summary = ""
 
-    if (isPolicyQuery) {
+    if (isPolicyQuery && supabase) {
       // Fetch relevant data from Supabase
       const { data: policies, error } = await supabase
         .from("policies") // Assuming a 'policies' table
@@ -130,7 +132,7 @@ User message: "${message}"
       // If still no query, default
       if (!queryJson) {
         context = "Sorry, I could not understand your education query.\n\n"
-      } else {
+      } else if (supabase) {
         // Query Supabase
         let dbQuery = supabase.from(queryJson.table).select("*")
         if (queryJson.filters && Object.keys(queryJson.filters).length > 0) {
@@ -148,6 +150,8 @@ User message: "${message}"
         } else {
           context = "No relevant education data found.\n\n"
         }
+      } else {
+        context = "Database not configured.\n\n"
       }
     }
 
