@@ -1,9 +1,20 @@
 import { NextRequest, NextResponse } from "next/server"
 import { model } from "@/lib/gemini"
-import { supabase } from "@/lib/supabase"
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
 
 export async function POST(request: NextRequest) {
   try {
+    const cookieStore = await cookies()
+
+    const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value
+        },
+      },
+    })
+
     const { message } = await request.json()
 
     // Check if the message is about policies
@@ -23,7 +34,7 @@ export async function POST(request: NextRequest) {
         .limit(5) // Limit for context
 
       if (!error && policies) {
-        context = `Relevant policy data:\n${policies.map(p => `${p.title}: ${p.content}`).join('\n')}\n\n`
+        context = `Relevant policy data:\n${policies.map((p: any) => `${p.title}: ${p.content}`).join('\n')}\n\n`
       }
     } else if (isEducationQuery) {
       // Fallback mapping for testing
